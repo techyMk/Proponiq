@@ -57,21 +57,36 @@ export async function POST(req: Request) {
   const appUrl =
     process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 
-  // Reuse existing Stripe customer if present, else let Checkout create one
-  const checkout = await stripe.checkout.sessions.create({
-    mode: "subscription",
-    line_items: [{ price: priceId, quantity: 1 }],
-    customer: user.stripeCustomerId ?? undefined,
-    customer_email: user.stripeCustomerId ? undefined : user.email,
-    client_reference_id: session.user.id,
-    metadata: { userId: session.user.id },
-    subscription_data: {
+  try {
+    const checkout = await stripe.checkout.sessions.create({
+      mode: "subscription",
+      line_items: [{ price: priceId, quantity: 1 }],
+      customer: user.stripeCustomerId ?? undefined,
+      customer_email: user.stripeCustomerId ? undefined : user.email,
+      client_reference_id: session.user.id,
       metadata: { userId: session.user.id },
-    },
-    success_url: `${appUrl}/settings?billing=success`,
-    cancel_url: `${appUrl}/settings?billing=cancelled`,
-    allow_promotion_codes: true,
-  });
+      subscription_data: {
+        metadata: { userId: session.user.id },
+      },
+      success_url: `${appUrl}/settings?billing=success`,
+      cancel_url: `${appUrl}/settings?billing=cancelled`,
+      allow_promotion_codes: true,
+    });
 
-  return NextResponse.json({ url: checkout.url });
+    return NextResponse.json({ url: checkout.url });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Stripe checkout failed";
+    console.error("[stripe/checkout] failed", {
+      message,
+      plan: parsed.data.plan,
+      interval: parsed.data.interval,
+      priceId,
+      hasCustomer: Boolean(user.stripeCustomerId),
+    });
+    return NextResponse.json(
+      { error: message, hint: "Check the Vercel function logs for /api/stripe/checkout" },
+      { status: 500 }
+    );
+  }
 }

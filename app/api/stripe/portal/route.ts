@@ -31,10 +31,16 @@ export async function POST() {
   const appUrl =
     process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 
-  const portal = await stripe.billingPortal.sessions.create({
-    customer: user.stripeCustomerId,
-    return_url: `${appUrl}/settings`,
-  });
-
-  return NextResponse.json({ url: portal.url });
+  try {
+    const portal = await stripe.billingPortal.sessions.create({
+      customer: user.stripeCustomerId,
+      return_url: `${appUrl}/settings`,
+    });
+    return NextResponse.json({ url: portal.url });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Stripe portal failed";
+    console.error("[stripe/portal] failed", { message });
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
