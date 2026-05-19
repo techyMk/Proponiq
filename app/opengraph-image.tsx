@@ -89,7 +89,7 @@ export default async function OpenGraphImage() {
               color: "#6FFFE9",
               fontSize: "18px",
               fontWeight: 500,
-              width: "fit-content",
+              alignSelf: "flex-start",
               marginBottom: "30px",
             }}
           >
