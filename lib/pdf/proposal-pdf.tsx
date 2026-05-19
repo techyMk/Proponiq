@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
+import type { Style } from "@react-pdf/types";
 import * as React from "react";
 
 // -----------------------------------------------------------------------------
@@ -204,7 +205,7 @@ function renderInline(nodes: PmNode[] | undefined, keyPrefix: string): React.Rea
   if (!nodes) return [];
   return nodes.map((n, i) => {
     if (n.type !== "text" || !n.text) return null;
-    let style: object = {};
+    let style: Style = {};
     let isLink = false;
     let href: string | undefined;
     for (const m of n.marks ?? []) {
