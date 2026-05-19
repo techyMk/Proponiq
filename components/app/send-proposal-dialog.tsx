@@ -19,6 +19,7 @@ import {
 export function SendProposalDialog({
   proposalId,
   defaultTo,
+  ownerEmail,
   defaultClientName,
   proposalTitle,
   senderName,
@@ -27,6 +28,7 @@ export function SendProposalDialog({
 }: {
   proposalId: string;
   defaultTo: string | null;
+  ownerEmail: string | null;
   defaultClientName: string;
   proposalTitle: string;
   senderName: string | null;
@@ -34,7 +36,9 @@ export function SendProposalDialog({
   onSent?: () => void;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [to, setTo] = React.useState(defaultTo ?? "");
+  // Prefer real client email > owner's own email (so first-time demo "just works") > empty.
+  const [to, setTo] = React.useState(defaultTo ?? ownerEmail ?? "");
+  const fallbackInUse = !defaultTo && Boolean(ownerEmail) && to === ownerEmail;
   const [subject, setSubject] = React.useState(
     `${senderName ? `${senderName} sent you a proposal — ` : ""}${proposalTitle}`
   );
@@ -106,6 +110,12 @@ export function SendProposalDialog({
               placeholder="client@email.com"
               required
             />
+            {fallbackInUse && (
+              <p className="text-[11px] text-muted-foreground">
+                Pre-filled with your own email so you can test the flow — change
+                it before sending to a real client.
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">

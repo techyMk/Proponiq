@@ -24,7 +24,7 @@ export default async function EditProposalPage({
     }),
     db.user.findUnique({
       where: { id: session.user.id },
-      select: { name: true },
+      select: { name: true, email: true },
     }),
   ]);
   if (!proposal) notFound();
@@ -56,6 +56,7 @@ export default async function EditProposalPage({
           : null,
       }}
       ownerName={owner?.name ?? null}
+      ownerEmail={owner?.email ?? null}
     />
   );
 }

@@ -58,9 +58,11 @@ const statusStyles: Record<ProposalStatus, string> = {
 export function ProposalEditor({
   proposal,
   ownerName,
+  ownerEmail,
 }: {
   proposal: ProposalShape;
   ownerName: string | null;
+  ownerEmail: string | null;
 }) {
   const router = useRouter();
 
@@ -239,6 +241,7 @@ export function ProposalEditor({
         <SendProposalDialog
           proposalId={proposal.id}
           defaultTo={clientEmail || null}
+          ownerEmail={ownerEmail}
           defaultClientName={clientName}
           proposalTitle={title}
           senderName={ownerName}
