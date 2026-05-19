@@ -49,21 +49,14 @@ export const metadata: Metadata = {
     description:
       "Create winning freelance proposals in seconds. AI-powered drafting, beautiful templates, e-signatures, analytics and smart follow-ups.",
     siteName: "Proponiq",
-    images: [
-      {
-        url: "/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Proponiq — Smart Proposals, Bigger Wins",
-      },
-    ],
+    // OG image auto-generated from app/opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",
     title: "Proponiq — Smart Proposals, Bigger Wins",
     description:
       "AI-powered proposal platform for freelancers, agencies, and consultants.",
-    images: ["/logo.png"],
+    // Twitter image auto-generated from app/twitter-image.tsx
   },
   icons: {
     icon: [{ url: "/icon.webp", type: "image/webp" }],
