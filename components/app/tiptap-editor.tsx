@@ -19,6 +19,7 @@ import {
   Redo,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EditorAIMenu } from "@/components/app/editor-ai-menu";
 
 type TiptapEditorProps = {
   initialContent: object | null;
@@ -75,6 +76,7 @@ export function TiptapEditor({
         )}
       >
         <EditorContent editor={editor} />
+        {editable && <EditorAIMenu editor={editor} />}
       </div>
     </div>
   );
