@@ -2,8 +2,11 @@ import * as React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { ProposalPdfDocument, type PdfProposal } from "./proposal-pdf";
 
+type RenderableDocument = Parameters<typeof renderToBuffer>[0];
+
 export async function renderProposalPdf(proposal: PdfProposal): Promise<Buffer> {
-  return renderToBuffer(React.createElement(ProposalPdfDocument, { proposal }));
+  const element = React.createElement(ProposalPdfDocument, { proposal });
+  return renderToBuffer(element as RenderableDocument);
 }
 
 export function pdfHeaders(filename: string): HeadersInit {
