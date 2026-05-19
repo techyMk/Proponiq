@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { seedSampleProposals } from "@/lib/sample-data";
 
 const schema = z.object({
   userType: z.enum(["FREELANCER", "AGENCY", "CONSULTANT", "IN_HOUSE", "OTHER"]),
@@ -42,6 +43,14 @@ export async function POST(req: Request) {
     },
     select: { id: true, onboardedAt: true },
   });
+
+  // Best-effort seed of sample proposals so the dashboard isn't empty.
+  // Never block onboarding completion if seeding fails.
+  try {
+    await seedSampleProposals(session.user.id);
+  } catch (err) {
+    console.error("[onboarding] sample seed failed", err);
+  }
 
   return NextResponse.json(updated);
 }
