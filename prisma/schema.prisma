@@ -1,0 +1,161 @@
+// Proponiq database schema
+// Postgres (Neon) via Prisma + Auth.js v5 standard tables
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// Auth.js v5 standard models
+// -----------------------------------------------------------------------------
+
+enum UserType {
+  FREELANCER
+  AGENCY
+  CONSULTANT
+  IN_HOUSE
+  OTHER
+}
+
+enum Plan {
+  FREE
+  PRO
+  AGENCY
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Onboarding / profile
+  userType     UserType?
+  businessName String?
+  headline     String?
+  services     String[]  @default([])
+  onboardedAt  DateTime?
+
+  // Billing (Stripe)
+  plan                   Plan      @default(FREE)
+  stripeCustomerId       String?   @unique
+  stripeSubscriptionId   String?   @unique
+  stripePriceId          String?
+  stripeCurrentPeriodEnd DateTime?
+
+  accounts  Account[]
+  sessions  Session[]
+  proposals Proposal[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// -----------------------------------------------------------------------------
+// Proponiq domain models
+// -----------------------------------------------------------------------------
+
+enum ProposalStatus {
+  DRAFT
+  SENT
+  VIEWED
+  SIGNED
+  ARCHIVED
+}
+
+model Proposal {
+  id          String         @id @default(cuid())
+  userId      String
+  title       String
+  clientName  String
+  clientEmail String?
+  status      ProposalStatus @default(DRAFT)
+
+  // The proposal brief used to generate this draft
+  brief    Json?
+  // The Tiptap/ProseMirror JSON document
+  content  Json
+  // Optional summary / pricing for quick display
+  amount   String?
+  currency String? @default("USD")
+
+  // Public share token (so links don't leak the cuid)
+  shareToken String  @unique @default(cuid())
+  isPublic   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user       User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  views      ProposalView[]
+  signatures ProposalSignature[]
+
+  @@index([userId])
+  @@index([shareToken])
+}
+
+model ProposalView {
+  id         String   @id @default(cuid())
+  proposalId String
+  viewedAt   DateTime @default(now())
+  userAgent  String?
+  ip         String?
+  country    String?
+
+  proposal Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+  @@index([proposalId])
+}
+
+model ProposalSignature {
+  id          String   @id @default(cuid())
+  proposalId  String
+  signerName  String
+  signerEmail String?
+  signedAt    DateTime @default(now())
+  ip          String?
+  userAgent   String?
+
+  proposal Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+  @@index([proposalId])
+}
