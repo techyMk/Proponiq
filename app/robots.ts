@@ -1,8 +1,12 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
+  const base =
+    process.env.NEXT_PUBLIC_APP_URL ??
+    process.env.NEXTAUTH_URL ??
+    "https://proponiq.com";
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://proponiq.com/sitemap.xml",
+    sitemap: `${base}/sitemap.xml`,
   };
 }

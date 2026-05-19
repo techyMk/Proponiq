@@ -87,10 +87,10 @@ export function LegalPage({
               <p className="mt-2 text-sm text-muted-foreground">
                 Reach us at{" "}
                 <a
-                  href="mailto:hello@proponiq.com"
+                  href="mailto:techymk.dev@gmail.com"
                   className="text-mint hover:text-cyan-glow underline underline-offset-4"
                 >
-                  hello@proponiq.com
+                  techymk.dev@gmail.com
                 </a>
                 . We answer everything within one business day.
               </p>

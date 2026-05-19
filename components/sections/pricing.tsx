@@ -241,7 +241,7 @@ function PricingCard({
           size="lg"
           className="mt-8 w-full group"
         >
-          <Link href="mailto:hello@proponiq.com?subject=Agency%20plan%20enquiry">
+          <Link href="mailto:techymk.dev@gmail.com?subject=Proponiq%20Agency%20plan%20enquiry">
             {plan.cta}
             <ArrowRight className="transition-transform group-hover:translate-x-0.5" />
           </Link>

@@ -15,7 +15,10 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const siteUrl = "https://proponiq.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  process.env.NEXTAUTH_URL ??
+  "https://proponiq.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

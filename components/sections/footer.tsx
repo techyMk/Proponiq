@@ -25,7 +25,7 @@ const columns = [
       { label: "Customers", href: "/#testimonials" },
       { label: "Careers", href: "/" },
       { label: "Press kit", href: "/" },
-      { label: "Contact", href: "mailto:hello@proponiq.com" },
+      { label: "Contact", href: "mailto:techymk.dev@gmail.com" },
     ],
   },
   {
@@ -34,7 +34,7 @@ const columns = [
       { label: "Blog", href: "/" },
       { label: "Guides", href: "/" },
       { label: "Proposal templates", href: "/#features" },
-      { label: "Help center", href: "mailto:hello@proponiq.com" },
+      { label: "Help center", href: "mailto:techymk.dev@gmail.com" },
       { label: "API docs", href: "/" },
     ],
   },

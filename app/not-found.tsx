@@ -70,10 +70,10 @@ export default function NotFound() {
                 <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">
                   Email{" "}
                   <a
-                    href="mailto:hello@proponiq.com"
+                    href="mailto:techymk.dev@gmail.com"
                     className="text-mint hover:text-cyan-glow underline underline-offset-4"
                   >
-                    hello@proponiq.com
+                    techymk.dev@gmail.com
                   </a>{" "}
                   with what you were looking for and we&apos;ll help out.
                 </p>

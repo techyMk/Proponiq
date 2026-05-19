@@ -189,7 +189,7 @@ function HeroDashboardMockup() {
           <div className="size-3 rounded-full bg-green-400/70" />
         </div>
         <div className="mx-auto px-4 py-1 rounded-md text-xs text-muted-foreground bg-foreground/[0.04] border border-foreground/5">
-          app.proponiq.com / proposals
+          proponiq-ai.vercel.app / proposals
         </div>
       </div>
 

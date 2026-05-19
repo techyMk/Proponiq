@@ -227,7 +227,7 @@ export default function PrivacyPage() {
                 access controls, and audited sub-processors. No system is
                 perfectly secure — if you discover a vulnerability, please
                 report it to{" "}
-                <a href="mailto:security@proponiq.com">security@proponiq.com</a>.
+                <a href="mailto:techymk.dev@gmail.com">techymk.dev@gmail.com</a>.
               </p>
             </>
           ),
@@ -251,7 +251,7 @@ export default function PrivacyPage() {
               <p>
                 Most of these are available directly from Settings. For anything
                 else, email{" "}
-                <a href="mailto:privacy@proponiq.com">privacy@proponiq.com</a>{" "}
+                <a href="mailto:techymk.dev@gmail.com">techymk.dev@gmail.com</a>{" "}
                 and we&apos;ll respond within 30 days.
               </p>
             </>
