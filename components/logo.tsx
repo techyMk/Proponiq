@@ -14,16 +14,19 @@ interface LogoProps {
   size?: LogoSize;
 }
 
-// Tailwind classes per size. Width is auto to preserve native aspect ratio.
-const SIZE_CLASSES: Record<
-  LogoSize,
-  { icon: string; logo: string; intrinsic: { w: number; h: number } }
-> = {
-  // Width/height below are intrinsic ratios passed to next/image; CSS scales
-  // them to the right height with `h-* w-auto`.
-  sm: { icon: "h-6", logo: "h-6", intrinsic: { w: 200, h: 100 } },
-  md: { icon: "h-8", logo: "h-8", intrinsic: { w: 200, h: 100 } },
-  lg: { icon: "h-12", logo: "h-12", intrinsic: { w: 240, h: 120 } },
+// Height classes per size variant. Width stays `w-auto` so the image's
+// natural aspect ratio (2:1 for the wordmark, 1:1 for the icon) is preserved.
+const SIZE_CLASSES: Record<LogoSize, { icon: string; logo: string }> = {
+  sm: { icon: "h-6", logo: "h-7" },   // tiny — inline with small text
+  md: { icon: "h-9", logo: "h-10" },  // nav / app header default
+  lg: { icon: "h-14", logo: "h-14" }, // hero placements (login, onboarding, footer)
+};
+
+// Intrinsic dimensions used by next/image for layout reservation.
+// Values just need to match the source image's aspect ratio.
+const INTRINSIC = {
+  logo: { width: 240, height: 120 }, // ~2:1
+  icon: { width: 100, height: 100 }, // 1:1
 };
 
 export function Logo({
@@ -32,14 +35,16 @@ export function Logo({
   href = "/",
   size = "md",
 }: LogoProps) {
-  const s = SIZE_CLASSES[size];
-  const heightClass = showWordmark ? s.logo : s.icon;
+  const heightClass = showWordmark
+    ? SIZE_CLASSES[size].logo
+    : SIZE_CLASSES[size].icon;
+  const dims = showWordmark ? INTRINSIC.logo : INTRINSIC.icon;
 
   const lightSrc = showWordmark
-    ? "/proponiq-logo-dark.png" // dark asset → for light backgrounds
+    ? "/proponiq-logo-dark.png" // dark-colored asset → for light backgrounds
     : "/proponiq-icon-dark.png";
   const darkSrc = showWordmark
-    ? "/proponiq-logo-light.png" // light asset → for dark backgrounds
+    ? "/proponiq-logo-light.png" // light-colored asset → for dark backgrounds
     : "/proponiq-icon-light.png";
 
   const content = (
@@ -50,21 +55,19 @@ export function Logo({
         className
       )}
     >
-      {/* Light theme — dark-colored logo */}
       <Image
         src={lightSrc}
         alt="Proponiq"
-        width={s.intrinsic.w}
-        height={s.intrinsic.h}
+        width={dims.width}
+        height={dims.height}
         priority
         className={cn(heightClass, "w-auto block dark:hidden")}
       />
-      {/* Dark theme — light-colored logo */}
       <Image
         src={darkSrc}
         alt=""
-        width={s.intrinsic.w}
-        height={s.intrinsic.h}
+        width={dims.width}
+        height={dims.height}
         priority
         aria-hidden
         className={cn(heightClass, "w-auto hidden dark:block")}
@@ -87,8 +90,7 @@ export function Logo({
 }
 
 /**
- * Icon-only mark — for tight spaces (e.g. in-app sidebar, email avatars).
- * Equivalent to `<Logo showWordmark={false} />` but with no link wrapper by default.
+ * Icon-only mark for tight spaces (sidebars, email avatars, decorations).
  */
 export function LogoMark({
   className,
@@ -97,22 +99,22 @@ export function LogoMark({
   className?: string;
   size?: LogoSize;
 }) {
-  const s = SIZE_CLASSES[size];
+  const heightClass = SIZE_CLASSES[size].icon;
   return (
-    <span className={cn("relative inline-flex", s.icon, className)} aria-hidden>
+    <span className={cn("relative inline-flex", className)} aria-hidden>
       <Image
         src="/proponiq-icon-dark.png"
         alt=""
-        width={100}
-        height={100}
-        className={cn(s.icon, "w-auto block dark:hidden")}
+        width={INTRINSIC.icon.width}
+        height={INTRINSIC.icon.height}
+        className={cn(heightClass, "w-auto block dark:hidden")}
       />
       <Image
         src="/proponiq-icon-light.png"
         alt=""
-        width={100}
-        height={100}
-        className={cn(s.icon, "w-auto hidden dark:block")}
+        width={INTRINSIC.icon.width}
+        height={INTRINSIC.icon.height}
+        className={cn(heightClass, "w-auto hidden dark:block")}
       />
     </span>
   );
