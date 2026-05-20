@@ -3,7 +3,6 @@
 import * as React from "react";
 import { CheckCircle2, Loader2, ShieldCheck, PenLine } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -17,10 +16,12 @@ export function SignatureBlock({
   token,
   signature,
   defaultName,
+  brandColor,
 }: {
   token: string;
   signature: Signature | null;
   defaultName?: string;
+  brandColor?: string;
 }) {
   const [signed, setSigned] = React.useState<Signature | null>(signature);
   const [name, setName] = React.useState(defaultName ?? "");
@@ -188,7 +189,16 @@ export function SignatureBlock({
       </label>
 
       <div className="pt-2">
-        <Button type="submit" size="lg" variant="primary" disabled={submitting} className="w-full sm:w-auto">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="inline-flex items-center justify-center gap-2 rounded-full h-12 px-7 text-base font-medium text-white transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none w-full sm:w-auto"
+          style={{
+            background: brandColor ?? "#20D6B5",
+            color: contrastText(brandColor ?? "#20D6B5"),
+            boxShadow: `0 8px 30px -8px ${(brandColor ?? "#20D6B5")}99`,
+          }}
+        >
           {submitting ? (
             <>
               <Loader2 className="size-4 animate-spin" />
@@ -200,7 +210,7 @@ export function SignatureBlock({
               Accept & sign proposal
             </>
           )}
-        </Button>
+        </button>
       </div>
     </form>
   );
@@ -215,4 +225,16 @@ function Detail({ label, children }: { label: string; children: React.ReactNode 
       <dd className="text-sm font-medium mt-0.5">{children}</dd>
     </div>
   );
+}
+
+// Pick black or white text based on a hex color's perceived brightness.
+function contrastText(hex: string): string {
+  const clean = (hex || "").replace("#", "");
+  if (clean.length !== 6) return "#FFFFFF";
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  // Perceived luminance (W3C formula)
+  const luma = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luma > 0.6 ? "#071B34" : "#FFFFFF";
 }

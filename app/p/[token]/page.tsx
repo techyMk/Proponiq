@@ -9,6 +9,8 @@ import { SignatureBlock } from "@/components/app/signature-block";
 
 export const dynamic = "force-dynamic";
 
+const MINT = "#20D6B5";
+
 export default async function PublicProposalPage({
   params,
 }: {
@@ -19,7 +21,15 @@ export default async function PublicProposalPage({
   const proposal = await db.proposal.findUnique({
     where: { shareToken: token },
     include: {
-      user: { select: { name: true, image: true } },
+      user: {
+        select: {
+          name: true,
+          image: true,
+          businessName: true,
+          brandColor: true,
+          brandLogoUrl: true,
+        },
+      },
       signatures: { orderBy: { signedAt: "asc" }, take: 1 },
     },
   });
@@ -27,20 +37,38 @@ export default async function PublicProposalPage({
   if (!proposal || !proposal.isPublic) notFound();
 
   const signature = proposal.signatures[0] ?? null;
+  const brandColor = proposal.user.brandColor ?? MINT;
+  const brandLogoUrl = proposal.user.brandLogoUrl;
+  const fromName = proposal.user.businessName || proposal.user.name;
 
   return (
     <div className="min-h-svh bg-background">
       <TrackView token={token} />
 
-      <header className="border-b border-foreground/10 bg-background/80 backdrop-blur-xl sticky top-0 z-10">
+      <header
+        className="border-b bg-background/80 backdrop-blur-xl sticky top-0 z-10"
+        style={{ borderBottomColor: hexAlpha(brandColor, 0.15) }}
+      >
         <div className="container flex h-14 items-center justify-between">
-          <Logo href="/" />
+          {brandLogoUrl ? (
+            <Link href="/" className="inline-flex items-center" aria-label="Home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={brandLogoUrl}
+                alt={fromName ?? "Brand logo"}
+                className="h-7 w-auto max-w-[180px] object-contain"
+              />
+            </Link>
+          ) : (
+            <Logo href="/" />
+          )}
           <div className="flex items-center gap-3">
             <a
               href={`/api/p/${token}/pdf`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs border border-foreground/15 hover:border-foreground/30 hover:bg-foreground/[0.04] transition"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs border transition hover:bg-foreground/[0.04]"
+              style={{ borderColor: hexAlpha(brandColor, 0.3) }}
             >
               <Download className="size-3.5" />
               Download PDF
@@ -48,12 +76,15 @@ export default async function PublicProposalPage({
             <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               {signature ? (
                 <>
-                  <CheckCircle2 className="size-3.5 text-mint" />
+                  <CheckCircle2 className="size-3.5" style={{ color: brandColor }} />
                   Signed
                 </>
               ) : (
                 <>
-                  <span className="size-1.5 rounded-full bg-mint animate-pulse" />
+                  <span
+                    className="size-1.5 rounded-full animate-pulse"
+                    style={{ background: brandColor }}
+                  />
                   Live proposal
                 </>
               )}
@@ -66,16 +97,19 @@ export default async function PublicProposalPage({
         <div className="max-w-3xl mx-auto">
           <div className="mb-8 flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              <p
+                className="text-xs uppercase tracking-[0.2em]"
+                style={{ color: hexAlpha(brandColor, 0.85) }}
+              >
                 Proposal for
               </p>
               <h1 className="font-display text-3xl md:text-4xl font-semibold tracking-tight mt-1">
                 {proposal.clientName}
               </h1>
             </div>
-            {proposal.user.name && (
+            {fromName && (
               <p className="text-xs text-muted-foreground text-right">
-                From <span className="text-foreground">{proposal.user.name}</span>
+                From <span className="text-foreground">{fromName}</span>
               </p>
             )}
           </div>
@@ -83,7 +117,13 @@ export default async function PublicProposalPage({
           <PublicProposalView content={proposal.content as object} />
 
           {proposal.amount && (
-            <div className="mt-10 rounded-2xl border border-mint/30 bg-gradient-to-br from-mint/[0.08] to-transparent p-6 md:p-8">
+            <div
+              className="mt-10 rounded-2xl border p-6 md:p-8"
+              style={{
+                borderColor: hexAlpha(brandColor, 0.35),
+                background: `linear-gradient(135deg, ${hexAlpha(brandColor, 0.1)} 0%, transparent 100%)`,
+              }}
+            >
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
                 Investment
               </p>
@@ -105,6 +145,7 @@ export default async function PublicProposalPage({
                 : null
             }
             defaultName={proposal.clientName}
+            brandColor={brandColor}
           />
         </div>
 
@@ -120,4 +161,21 @@ export default async function PublicProposalPage({
       </main>
     </div>
   );
+}
+
+// Convert "#RRGGBB" to "rgba(R, G, B, alpha)".
+// Falls back to the mint default if input is malformed.
+function hexAlpha(hex: string, alpha: number): string {
+  const clean = (hex || "").replace("#", "");
+  if (clean.length !== 6) {
+    const m = MINT.replace("#", "");
+    const r = parseInt(m.slice(0, 2), 16);
+    const g = parseInt(m.slice(2, 4), 16);
+    const b = parseInt(m.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }

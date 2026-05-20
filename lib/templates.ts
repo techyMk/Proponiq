@@ -50,7 +50,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Design",
     emoji: "🎨",
     description: "Logo, type, color, and a basic visual system.",
-    defaultTitle: "Brand identity for [Client Name]",
+    defaultTitle: "Brand identity for {{client.name}}",
     defaultAmount: "$6,500 fixed",
     content: {
       type: "doc",
@@ -76,7 +76,7 @@ export const TEMPLATES: ProposalTemplate[] = [
         h(2, "Investment"),
         p("$6,500 fixed — 50% to begin, 50% on final delivery."),
         h(2, "Next steps"),
-        p("Reply to confirm and I'll send the kickoff calendar invite + intake brief."),
+        p("Reply to confirm and I'll send the kickoff calendar invite + intake brief. — {{your.name}}, {{date.long}}"),
       ],
     },
   },
@@ -86,7 +86,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Design",
     emoji: "🖥️",
     description: "Modern marketing site with up to 6 pages.",
-    defaultTitle: "Website redesign for [Client Name]",
+    defaultTitle: "Website redesign for {{client.name}}",
     defaultAmount: "$8,500 fixed",
     content: {
       type: "doc",
@@ -120,7 +120,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Development",
     emoji: "⚡",
     description: "Full-stack MVP in 8–10 weeks.",
-    defaultTitle: "MVP build for [Client Name]",
+    defaultTitle: "MVP build for {{client.name}}",
     defaultAmount: "$24,000 fixed",
     content: {
       type: "doc",
@@ -159,7 +159,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Marketing",
     emoji: "📈",
     description: "3-month SEO retainer to grow organic traffic.",
-    defaultTitle: "SEO retainer for [Client Name]",
+    defaultTitle: "SEO retainer for {{client.name}}",
     defaultAmount: "$3,200 / month",
     content: {
       type: "doc",
@@ -197,7 +197,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Consulting",
     emoji: "🧭",
     description: "Strategic engagement with deliverables.",
-    defaultTitle: "Strategy engagement for [Client Name]",
+    defaultTitle: "Strategy engagement for {{client.name}}",
     defaultAmount: "$12,000 fixed",
     content: {
       type: "doc",
@@ -229,7 +229,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Content",
     emoji: "✍️",
     description: "Marketing site copy + 4 launch articles.",
-    defaultTitle: "Copy & launch content for [Client Name]",
+    defaultTitle: "Copy & launch content for {{client.name}}",
     defaultAmount: "$5,200 fixed",
     content: {
       type: "doc",
@@ -262,7 +262,7 @@ export const TEMPLATES: ProposalTemplate[] = [
     category: "Other",
     emoji: "📄",
     description: "Start with an empty document.",
-    defaultTitle: "Proposal for [Client Name]",
+    defaultTitle: "Proposal for {{client.name}}",
     content: {
       type: "doc",
       content: [

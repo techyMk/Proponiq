@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { getTemplate } from "@/lib/templates";
 import { checkProposalQuota } from "@/lib/quota";
+import { buildContext, substitute, substituteInDoc } from "@/lib/variables";
 
 const schema = z.object({
   templateId: z.string().min(1),
@@ -50,15 +51,26 @@ export async function POST(req: Request) {
     );
   }
 
-  // Replace [Client Name] placeholder in title + content
-  const clientName = parsed.data.clientName.trim();
-  const title =
-    parsed.data.title?.trim() ||
-    template.defaultTitle.replace(/\[Client Name\]/gi, clientName);
+  // Pull the owner's profile so we can fill {{your.name}} / {{your.business}}.
+  const owner = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { name: true, businessName: true },
+  });
 
-  const content = JSON.parse(
-    JSON.stringify(template.content).replace(/\[Client Name\]/gi, clientName)
-  );
+  const clientName = parsed.data.clientName.trim();
+  const ctx = buildContext({
+    clientName,
+    ownerName: owner?.name ?? null,
+    ownerBusinessName: owner?.businessName ?? null,
+    amount: template.defaultAmount ?? null,
+  });
+
+  const title =
+    parsed.data.title?.trim() ?? substitute(template.defaultTitle, ctx);
+  const content = substituteInDoc(template.content, ctx);
+  const amount = template.defaultAmount
+    ? substitute(template.defaultAmount, ctx)
+    : null;
 
   const proposal = await db.proposal.create({
     data: {
@@ -66,7 +78,7 @@ export async function POST(req: Request) {
       title,
       clientName,
       content,
-      amount: template.defaultAmount ?? null,
+      amount,
       currency: "USD",
     },
   });

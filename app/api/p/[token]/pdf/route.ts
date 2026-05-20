@@ -11,7 +11,14 @@ export async function GET(_req: Request, ctx: { params: Promise<{ token: string 
   const proposal = await db.proposal.findUnique({
     where: { shareToken: token },
     include: {
-      user: { select: { name: true } },
+      user: {
+        select: {
+          name: true,
+          businessName: true,
+          brandColor: true,
+          brandLogoUrl: true,
+        },
+      },
       signatures: { orderBy: { signedAt: "asc" }, take: 1 },
     },
   });
@@ -27,6 +34,11 @@ export async function GET(_req: Request, ctx: { params: Promise<{ token: string 
     amount: proposal.amount,
     content: proposal.content as never,
     authorName: proposal.user.name ?? null,
+    authorBusinessName: proposal.user.businessName ?? null,
+    brand: {
+      color: proposal.user.brandColor,
+      logoUrl: proposal.user.brandLogoUrl,
+    },
     signature: signature
       ? {
           signerName: signature.signerName,

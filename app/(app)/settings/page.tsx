@@ -3,6 +3,7 @@ import Image from "next/image";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { BillingCard } from "@/components/app/billing-card";
+import { BrandingCard } from "@/components/app/branding-card";
 import { DangerZone } from "@/components/app/danger-zone";
 
 export const dynamic = "force-dynamic";
@@ -37,6 +38,8 @@ export default async function SettingsPage() {
         plan: true,
         stripeSubscriptionId: true,
         stripeCurrentPeriodEnd: true,
+        brandColor: true,
+        brandLogoUrl: true,
       },
     }),
     db.proposal.count({ where: { userId: session.user.id } }),
@@ -88,6 +91,11 @@ export default async function SettingsPage() {
         hasSubscription={Boolean(user?.stripeSubscriptionId)}
         periodEnd={user?.stripeCurrentPeriodEnd?.toISOString() ?? null}
         proposalsUsedThisMonth={proposalsThisMonth}
+      />
+
+      <BrandingCard
+        initialColor={user?.brandColor ?? null}
+        initialLogoUrl={user?.brandLogoUrl ?? null}
       />
 
       <section className="rounded-2xl border border-foreground/10 bg-card p-6 space-y-4">

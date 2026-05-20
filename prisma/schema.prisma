@@ -44,6 +44,10 @@ model User {
   services     String[]  @default([])
   onboardedAt  DateTime?
 
+  // Branding — applied to public proposals and exported PDFs
+  brandColor   String? // hex color like "#20D6B5"
+  brandLogoUrl String? // any public image URL
+
   // Billing (Stripe)
   plan                   Plan      @default(FREE)
   stripeCustomerId       String?   @unique

@@ -1,6 +1,7 @@
 import type { ProposalStatus } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getTemplate } from "@/lib/templates";
+import { buildContext, substitute, substituteInDoc } from "@/lib/variables";
 
 // -----------------------------------------------------------------------------
 // Sample proposals seeded to new users so the dashboard isn't empty on first
@@ -68,16 +69,25 @@ export async function seedSampleProposals(userId: string) {
   const existing = await db.proposal.count({ where: { userId } });
   if (existing > 0) return { skipped: true, count: 0 };
 
+  const owner = await db.user.findUnique({
+    where: { id: userId },
+    select: { name: true, businessName: true },
+  });
+
   let created = 0;
 
   for (const sample of SAMPLES) {
     const template = getTemplate(sample.templateId);
     if (!template) continue;
 
-    const title = template.defaultTitle.replace(/\[Client Name\]/gi, sample.clientName);
-    const content = JSON.parse(
-      JSON.stringify(template.content).replace(/\[Client Name\]/gi, sample.clientName)
-    );
+    const ctx = buildContext({
+      clientName: sample.clientName,
+      ownerName: owner?.name ?? null,
+      ownerBusinessName: owner?.businessName ?? null,
+      amount: sample.amount,
+    });
+    const title = substitute(template.defaultTitle, ctx);
+    const content = substituteInDoc(template.content, ctx);
 
     const createdAt = new Date(Date.now() - sample.daysAgo * DAY);
 
