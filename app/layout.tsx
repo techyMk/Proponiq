@@ -58,8 +58,11 @@ export const metadata: Metadata = {
       "AI-powered proposal platform for freelancers, agencies, and consultants.",
     // Twitter image auto-generated from app/twitter-image.tsx
   },
-  // Favicon + apple-touch-icon picked up automatically from
-  // app/icon.webp and app/apple-icon.webp via Next.js file conventions.
+  icons: {
+    icon: [{ url: "/icon.webp", type: "image/webp" }],
+    shortcut: "/icon.webp",
+    apple: "/apple-icon.webp",
+  },
   robots: {
     index: true,
     follow: true,
