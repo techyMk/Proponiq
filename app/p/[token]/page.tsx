@@ -114,7 +114,7 @@ export default async function PublicProposalPage({
             className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-foreground transition"
           >
             <span>Sent with</span>
-            <Logo showWordmark href="" />
+            <Logo showWordmark size="sm" href="" />
           </Link>
         </footer>
       </main>

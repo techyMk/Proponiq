@@ -140,7 +140,13 @@ app/
     account/delete/          POST → permanent account deletion
   layout.tsx               Root (fonts, theme, metadata)
   globals.css              Tailwind + design tokens + .prose-proposal
-  icon.webp                Favicon
+  opengraph-image.tsx      Dynamic OG/Twitter image (edge runtime)
+  twitter-image.tsx        Twitter card (re-exports OG image)
+public/
+  proponiq-icon-dark.png   Icon for light backgrounds
+  proponiq-icon-light.png  Icon for dark backgrounds
+  proponiq-logo-dark.png   Full logo for light backgrounds
+  proponiq-logo-light.png  Full logo for dark backgrounds
   sitemap.ts / robots.ts
 auth.ts                    Auth.js v5 config
 middleware.ts              Route gate for /dashboard, /proposals, /settings

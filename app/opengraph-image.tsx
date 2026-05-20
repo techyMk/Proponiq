@@ -6,7 +6,17 @@ export const alt = "Proponiq — Smart proposals, bigger wins.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+function appOrigin() {
+  return (
+    process.env.NEXT_PUBLIC_APP_URL ??
+    process.env.NEXTAUTH_URL ??
+    "https://proponiq-ai.vercel.app"
+  );
+}
+
 export default async function OpenGraphImage() {
+  const iconUrl = `${appOrigin()}/proponiq-icon-light.png`;
+
   return new ImageResponse(
     (
       <div
@@ -43,24 +53,21 @@ export default async function OpenGraphImage() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "14px",
+            gap: "16px",
             zIndex: 1,
           }}
         >
-          <div
-            style={{
-              width: "44px",
-              height: "44px",
-              display: "flex",
-              borderRadius: "10px",
-              background:
-                "linear-gradient(135deg, #20D6B5 0%, #6FFFE9 100%)",
-              boxShadow: "0 8px 30px -8px rgba(32, 214, 181, 0.7)",
-            }}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={iconUrl}
+            alt=""
+            width={56}
+            height={56}
+            style={{ display: "flex" }}
           />
           <span
             style={{
-              fontSize: "30px",
+              fontSize: "32px",
               fontWeight: 700,
               letterSpacing: "-0.02em",
             }}

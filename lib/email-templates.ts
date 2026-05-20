@@ -6,6 +6,16 @@ const MINT = "#20D6B5";
 const MUTED = "#5C6B82";
 const BG = "#F7FAFC";
 
+function appOrigin() {
+  return (
+    process.env.NEXT_PUBLIC_APP_URL ??
+    process.env.NEXTAUTH_URL ??
+    "https://proponiq-ai.vercel.app"
+  );
+}
+
+const ICON_URL = `${appOrigin()}/proponiq-icon-dark.png`;
+
 function shell(opts: {
   preheader?: string;
   body: string;
@@ -29,8 +39,8 @@ function shell(opts: {
             <td style="padding:24px 32px;border-bottom:1px solid #EEF2F8;">
               <table role="presentation" width="100%"><tr>
                 <td>
-                  <span style="display:inline-block;width:18px;height:18px;background:${MINT};border-radius:4px;vertical-align:middle;"></span>
-                  <span style="font-weight:700;color:${NAVY};letter-spacing:0.2px;margin-left:8px;font-size:14px;vertical-align:middle;">proponiq</span>
+                  <img src="${ICON_URL}" width="24" height="24" alt="" style="display:inline-block;vertical-align:middle;border:0;" />
+                  <span style="font-weight:700;color:${NAVY};letter-spacing:0.2px;margin-left:10px;font-size:15px;vertical-align:middle;">Proponiq</span>
                 </td>
               </tr></table>
             </td>

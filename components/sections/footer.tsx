@@ -59,7 +59,7 @@ export function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Brand + newsletter */}
           <div className="lg:col-span-5">
-            <Logo />
+            <Logo size="lg" />
             <p className="mt-5 text-sm text-muted-foreground max-w-sm leading-relaxed">
               Smart proposals, bigger wins. Proponiq is the AI proposal platform
               built for freelancers, agencies and consultants who care about how

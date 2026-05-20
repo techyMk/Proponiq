@@ -23,7 +23,7 @@ export default async function OnboardingPage() {
       <BackgroundOrbs />
       <div className="container max-w-2xl py-12 md:py-20 relative">
         <div className="flex justify-center mb-10">
-          <Logo />
+          <Logo size="lg" />
         </div>
 
         <div className="text-center mb-10">

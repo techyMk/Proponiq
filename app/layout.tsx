@@ -59,9 +59,20 @@ export const metadata: Metadata = {
     // Twitter image auto-generated from app/twitter-image.tsx
   },
   icons: {
-    icon: [{ url: "/icon.webp", type: "image/webp" }],
-    shortcut: "/icon.webp",
-    apple: "/icon.webp",
+    icon: [
+      {
+        url: "/proponiq-icon-dark.png",
+        media: "(prefers-color-scheme: light)",
+        type: "image/png",
+      },
+      {
+        url: "/proponiq-icon-light.png",
+        media: "(prefers-color-scheme: dark)",
+        type: "image/png",
+      },
+    ],
+    shortcut: "/proponiq-icon-dark.png",
+    apple: "/proponiq-icon-dark.png",
   },
   robots: {
     index: true,
