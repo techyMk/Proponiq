@@ -58,22 +58,8 @@ export const metadata: Metadata = {
       "AI-powered proposal platform for freelancers, agencies, and consultants.",
     // Twitter image auto-generated from app/twitter-image.tsx
   },
-  icons: {
-    icon: [
-      {
-        url: "/proponiq-icon-dark.png",
-        media: "(prefers-color-scheme: light)",
-        type: "image/png",
-      },
-      {
-        url: "/proponiq-icon-light.png",
-        media: "(prefers-color-scheme: dark)",
-        type: "image/png",
-      },
-    ],
-    shortcut: "/proponiq-icon-dark.png",
-    apple: "/proponiq-icon-dark.png",
-  },
+  // Favicon + apple-touch-icon picked up automatically from
+  // app/icon.webp and app/apple-icon.webp via Next.js file conventions.
   robots: {
     index: true,
     follow: true,
