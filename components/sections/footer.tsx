@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Twitter, Github, Linkedin, Send, ArrowRight } from "lucide-react";
+import { Github, Send, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 
@@ -143,20 +143,16 @@ export function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-1">
-            {[
-              { i: Twitter, href: "#", label: "Twitter" },
-              { i: Linkedin, href: "#", label: "LinkedIn" },
-              { i: Github, href: "#", label: "GitHub" },
-            ].map(({ i: Icon, href, label }) => (
-              <Link
-                key={label}
-                href={href}
-                aria-label={label}
-                className="inline-flex items-center justify-center size-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition"
-              >
-                <Icon className="size-4" />
-              </Link>
-            ))}
+            <Link
+              href="https://github.com/techyMk/Proponiq"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub repository"
+              className="inline-flex items-center gap-2 px-3 h-9 rounded-full text-xs text-muted-foreground hover:text-foreground border border-foreground/10 hover:border-foreground/20 hover:bg-foreground/5 transition"
+            >
+              <Github className="size-4" />
+              View on GitHub
+            </Link>
           </div>
         </div>
 
