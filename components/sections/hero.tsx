@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Play,
+  Github,
   CheckCircle2,
   FileText,
   Bot,
@@ -96,9 +96,13 @@ export function Hero() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="secondary" className="group">
-              <Link href="#product">
-                <Play className="size-3.5 fill-current" />
-                Watch demo
+              <Link
+                href="https://github.com/techyMk/Proponiq"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="size-4" />
+                View source
               </Link>
             </Button>
           </motion.div>
