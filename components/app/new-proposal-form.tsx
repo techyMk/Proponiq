@@ -3,7 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Sparkles, ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { BotIcon } from "@/components/icons/bot-icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -186,7 +187,7 @@ export function NewProposalForm() {
             </>
           ) : (
             <>
-              <Sparkles className="size-4" />
+              <BotIcon className="size-4" />
               Draft with AI
               <ArrowRight className="transition-transform group-hover:translate-x-0.5" />
             </>

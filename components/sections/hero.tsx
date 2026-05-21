@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Play,
-  Sparkles,
   CheckCircle2,
   FileText,
   Bot,
@@ -15,6 +14,7 @@ import {
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { BotIcon } from "@/components/icons/bot-icon";
 
 const stats = [
   { value: "12k+", label: "Proposals sent" },
@@ -35,7 +35,7 @@ export function Hero() {
             transition={{ duration: 0.5 }}
           >
             <Badge variant="mint" className="mb-6">
-              <Sparkles className="size-3.5" />
+              <BotIcon className="size-4" />
               AI proposal engine · v2 is live
             </Badge>
           </motion.div>
@@ -224,7 +224,7 @@ function HeroDashboardMockup() {
               <div className="font-display text-lg font-semibold">Active proposals</div>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint/10 text-mint border border-mint/20 text-xs">
-              <Sparkles className="size-3" />
+              <BotIcon className="size-3.5" />
               AI Draft
             </div>
           </div>
@@ -357,8 +357,8 @@ function FloatingAICard() {
       className="hidden lg:flex absolute -bottom-8 left-1/4 glass rounded-2xl p-4 w-72 flex-col gap-2 shadow-soft-dark"
     >
       <div className="flex items-center gap-2 text-xs">
-        <div className="size-6 rounded-md bg-gradient-to-br from-mint to-cyan-glow text-navy flex items-center justify-center">
-          <Sparkles className="size-3" />
+        <div className="size-6 rounded-md bg-gradient-to-br from-mint to-cyan-glow text-navy flex items-center justify-center overflow-hidden">
+          <BotIcon className="size-5" />
         </div>
         <span className="font-medium">AI Assistant</span>
       </div>

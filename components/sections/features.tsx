@@ -3,7 +3,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import {
-  Sparkles,
   LayoutTemplate,
   UserSquare,
   DollarSign,
@@ -14,6 +13,7 @@ import {
   PlugZap,
 } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui/section";
+import { BotIcon } from "@/components/icons/bot-icon";
 
 type Feature = {
   icon: React.ComponentType<{ className?: string }>;
@@ -23,7 +23,7 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    icon: Sparkles,
+    icon: BotIcon,
     title: "AI proposal generation",
     description:
       "Generate scoped, on-brand proposals in seconds. Tone, pricing and structure tuned to each prospect.",

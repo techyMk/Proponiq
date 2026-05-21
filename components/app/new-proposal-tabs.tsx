@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Sparkles, LayoutTemplate } from "lucide-react";
+import { LayoutTemplate } from "lucide-react";
+import { BotIcon } from "@/components/icons/bot-icon";
 import type { ProposalTemplate } from "@/lib/templates";
 import { NewProposalForm } from "@/components/app/new-proposal-form";
 import { TemplateGallery } from "@/components/app/template-gallery";
@@ -16,7 +17,7 @@ export function NewProposalTabs({ templates }: { templates: ProposalTemplate[] }
     <div className="space-y-6">
       <div className="inline-flex items-center gap-1 p-1 rounded-full border border-foreground/10 bg-card">
         <TabButton active={tab === "ai"} onClick={() => setTab("ai")}>
-          <Sparkles className="size-4" />
+          <BotIcon className="size-4" />
           AI draft
         </TabButton>
         <TabButton active={tab === "template"} onClick={() => setTab("template")}>

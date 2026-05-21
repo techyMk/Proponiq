@@ -3,7 +3,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import {
-  Sparkles,
   FileText,
   TrendingUp,
   Users,
@@ -18,6 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui/section";
+import { BotIcon } from "@/components/icons/bot-icon";
 
 type TabKey = "editor" | "analytics" | "pipeline" | "ai";
 
@@ -148,7 +148,10 @@ function EditorView() {
             <div className="text-xs text-muted-foreground">Proposal · Draft</div>
             <div className="text-sm font-semibold">Vortex Studios · Brand redesign</div>
           </div>
-          <span className="text-[10px] px-2 py-1 rounded-full bg-mint/10 text-mint">AI generated</span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] px-2 py-1 rounded-full bg-mint/10 text-mint">
+            <BotIcon className="size-3" />
+            AI generated
+          </span>
         </div>
         <div className="p-5 md:p-7 space-y-4 text-sm leading-relaxed">
           <p className="font-display text-2xl font-semibold tracking-tight">
@@ -183,7 +186,7 @@ function EditorView() {
       <div className="col-span-12 md:col-span-4 space-y-3">
         <div className="rounded-xl border border-mint/30 bg-gradient-to-br from-mint/10 to-transparent p-4">
           <div className="flex items-center gap-2 text-xs">
-            <Sparkles className="size-3.5 text-mint" />
+            <BotIcon className="size-4" />
             <span className="font-semibold">AI suggestions</span>
           </div>
           <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
@@ -320,7 +323,7 @@ function AIView() {
     <div className="grid grid-cols-12 gap-4 md:gap-5">
       <div className="col-span-12 md:col-span-7 rounded-xl border border-foreground/10 bg-card overflow-hidden">
         <div className="px-5 py-3 border-b border-foreground/10 flex items-center gap-2 text-xs">
-          <Sparkles className="size-3.5 text-mint" />
+          <BotIcon className="size-4" />
           <span className="font-semibold">Proponiq AI</span>
           <span className="ml-auto text-muted-foreground">Context: Vortex Studios · Q4 deck · brand voice</span>
         </div>
@@ -357,13 +360,13 @@ function ChatBubble({ role, children }: { role: "user" | "ai"; children: React.R
   return (
     <div className={`flex gap-3 ${role === "user" ? "" : "flex-row"}`}>
       <div
-        className={`size-7 shrink-0 rounded-full flex items-center justify-center text-[10px] ${
+        className={`size-7 shrink-0 rounded-full flex items-center justify-center text-[10px] overflow-hidden ${
           role === "user"
             ? "bg-foreground/10"
             : "bg-gradient-to-br from-mint to-cyan-glow text-navy"
         }`}
       >
-        {role === "user" ? "You" : <Sparkles className="size-3.5" />}
+        {role === "user" ? "You" : <BotIcon className="size-6" />}
       </div>
       <div
         className={`rounded-2xl px-4 py-3 text-xs leading-relaxed max-w-[88%] ${

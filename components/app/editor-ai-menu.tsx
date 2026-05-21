@@ -3,7 +3,6 @@
 import * as React from "react";
 import { BubbleMenu, type Editor } from "@tiptap/react";
 import {
-  Sparkles,
   Scissors,
   Expand,
   Wand2,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { BotIcon } from "@/components/icons/bot-icon";
 
 type Action =
   | "improve"
@@ -112,8 +112,8 @@ export function EditorAIMenu({ editor }: { editor: Editor }) {
           </div>
         ) : view === "main" ? (
           <>
-            <div className="px-3 py-2 flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
-              <Sparkles className="size-3 text-mint" />
+            <div className="px-3 py-2 flex items-center gap-2 text-[10px] uppercase tracking-wider text-muted-foreground">
+              <BotIcon className="size-4" />
               AI assistant
             </div>
             {PRIMARY_ACTIONS.map((a) => {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Plus, FileText, Eye, CheckCircle2, Sparkles } from "lucide-react";
+import { BotIcon } from "@/components/icons/bot-icon";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
@@ -121,8 +122,8 @@ function EmptyState() {
       >
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 size-[300px] rounded-full bg-mint/15 blur-[100px]" />
       </div>
-      <div className="relative mx-auto inline-flex size-14 items-center justify-center rounded-2xl bg-mint/10 border border-mint/20 text-mint mb-4">
-        <Sparkles className="size-6" />
+      <div className="relative mx-auto inline-flex size-14 items-center justify-center rounded-2xl bg-mint/10 border border-mint/20 text-mint mb-4 overflow-hidden">
+        <BotIcon className="size-10" />
       </div>
       <h3 className="font-display text-lg font-semibold">No proposals yet</h3>
       <p className="mt-1 text-sm text-muted-foreground max-w-md mx-auto">
