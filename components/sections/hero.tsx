@@ -17,9 +17,9 @@ import { Button } from "@/components/ui/button";
 import { BotIcon } from "@/components/icons/bot-icon";
 
 const stats = [
-  { value: "12k+", label: "Proposals sent" },
-  { value: "67%", label: "Avg. win rate" },
-  { value: "5 min", label: "Drafting time" },
+  { value: "14", label: "Days to build" },
+  { value: "11+", label: "Features shipped" },
+  { value: "0", label: "Mock data" },
 ];
 
 export function Hero() {

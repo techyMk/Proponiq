@@ -44,8 +44,9 @@ export function CTABanner() {
               <span className="text-gradient">they can&apos;t say no to?</span>
             </h2>
             <p className="mt-5 text-base md:text-lg text-neutral-text/70 max-w-xl mx-auto text-balance">
-              Join 12,000+ freelancers and agencies using Proponiq to close bigger
-              deals, faster — with a free 14-day Pro trial.
+              A working AI proposal platform — built end-to-end for freelancers,
+              agencies and consultants. Sign in with Google and try every feature
+              free.
             </p>
 
             <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">

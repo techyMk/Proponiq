@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       // Google account profile pictures (lh3, lh4, lh5, lh6…)
       { protocol: "https", hostname: "*.googleusercontent.com" },
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
+      { protocol: "https", hostname: "cdn.simpleicons.org" },
     ],
   },
   experimental: {
