@@ -19,6 +19,14 @@ dist/
 .vscode/
 .idea/
 
+# AI assistants / IDE memory
+.claude/
+.cursor/
+.aider*
+.continue/
+.windsurf/
+.copilot/
+
 # Debug
 npm-debug.log*
 yarn-debug.log*
