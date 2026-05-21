@@ -44,9 +44,9 @@ export function Testimonials() {
           <blockquote className="relative space-y-5 text-base md:text-lg leading-relaxed text-balance">
             <p>
               Proponiq started as a stress test for myself: build a complete SaaS,
-              end-to-end, in about two weeks. Not a clone with mock data — a real
-              product where every button works, every flow ships, and every claim
-              on this page is something you can try right now.
+              end-to-end, in one week. Not a clone with mock data — a real product
+              where every button works, every flow ships, and every claim on this
+              page is something you can try right now.
             </p>
             <p>
               It was also an excuse to play with stacks I love. Groq for instant
@@ -57,7 +57,7 @@ export function Testimonials() {
             </p>
             <p className="text-muted-foreground text-[15px]">
               Proponiq isn&apos;t a live company. There&apos;s no real user base,
-              no paying customers, no team. It&apos;s one builder, fourteen days,
+              no paying customers, no team. It&apos;s one builder, seven days,
               and the entire surface area of a working SaaS — auth, AI, payments,
               signatures, PDFs, email, custom branding. If you&apos;re hiring
               or curious, the code&apos;s on GitHub.
